@@ -97,7 +97,7 @@ const SellerOrdersCompleted = () => {
                               Price{" :"}
                               <span>
                                 {" "}
-                                ${parseFloat(item.orderPrice).toFixed(2)}
+                                LKR{parseFloat(item.orderPrice).toFixed(2)}
                               </span>
                             </p>
                             <p>

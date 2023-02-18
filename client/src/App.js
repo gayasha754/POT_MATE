@@ -38,9 +38,8 @@ import AddRating from "./components/buyers/AddRating";
 
 import UpdateProduct from "./components/sellers/UpdateProduct";
 import UpdateStock from "./components/sellers/UpdateStock";
-import UpdateCustomer from "./components/sellers/updatecustomer";
+import UpdateCustomer from "./components/sellers/Updatecustomer";
 
-// import LoginAdmin from "./components/admin/Login";
 
 function App() {
   return (
@@ -115,7 +114,7 @@ function App() {
         element={<UpdateProduct />}
       />
       <Route path="/sellers/updatestock/:id" element={<UpdateStock />} />
-      <Route path="/sellers/updatecustomer" element={<UpdateCustomer />} />
+      <Route path="/sellers/Updatecustomer" element={<UpdateCustomer />} />
       <Route path="/sellers/orders/" element={<SellerOrders />} />
       <Route path="/sellers/orders/shipped" element={<SellerOrdersShipped />} />
       <Route
