@@ -226,7 +226,7 @@ const getPendingOrders = (res) => {
         return res.json({ error: "Internal Server Error" });
       } else {
         const sql =
-          "SELECT order_items.*, products.id, products.productName, products.image, orders.datetime FROM order_items INNER JOIN orders ON order_items.orderID = orders.orderID INNER JOIN products ON order_items.productID = products.id WHERE order_items.status = ? ORDER BY order_items.orderItemID LIMIT 3";
+          "SELECT order_items.*, products.id, products.productName, products.image, orders.datetime FROM order_items INNER JOIN orders ON order_items.orderID = orders.orderID INNER JOIN products ON order_items.productID = products.id WHERE order_items.status = ? ORDER BY order_items.orderItemID";
         connection.query(sql, ["Pending"], (err, results) => {
           connection.release();
           if (err) {
@@ -240,6 +240,7 @@ const getPendingOrders = (res) => {
   });
 };
 
+//order_items.status = Delivered
 const getShippedOrders = (res) => {
   return new Promise((resolve, reject) => {
     db.getConnection((err, connection) => {
@@ -247,7 +248,7 @@ const getShippedOrders = (res) => {
         return res.json({ error: "Internal Server Error" });
       } else {
         const sql =
-          "SELECT order_items.*, products.id, products.productName, products.image, orders.datetime FROM order_items INNER JOIN orders ON order_items.orderID = orders.orderID INNER JOIN products ON order_items.productID = products.id WHERE order_items.status = ? ORDER BY order_items.orderItemID LIMIT 3";
+          "SELECT order_items.*, products.id, products.productName, products.image, orders.datetime FROM order_items INNER JOIN orders ON order_items.orderID = orders.orderID INNER JOIN products ON order_items.productID = products.id WHERE order_items.status = ? ORDER BY order_items.orderItemID";
         connection.query(sql, ["Delivered"], (err, results) => {
           connection.release();
           if (err) {
@@ -268,7 +269,7 @@ const getCompletedOrders = (res) => {
         return res.json({ error: "Internal Server Error" });
       } else {
         const sql =
-          "SELECT order_items.*, products.id, reviews.productRating, products.productName, products.image, orders.datetime FROM order_items INNER JOIN orders ON order_items.orderID = orders.orderID INNER JOIN products ON order_items.productID = products.id INNER JOIN reviews ON reviews.orderItemID = order_items.orderItemID WHERE order_items.status = ? ORDER BY order_items.orderItemID LIMIT 3";
+          "SELECT order_items.*, products.id, reviews.productRating, products.productName, products.image, orders.datetime FROM order_items INNER JOIN orders ON order_items.orderID = orders.orderID INNER JOIN products ON order_items.productID = products.id INNER JOIN reviews ON reviews.orderItemID = order_items.orderItemID WHERE order_items.status = ? ORDER BY order_items.orderItemID";
         connection.query(sql, ["Completed"], (err, results) => {
           connection.release();
           if (err) {

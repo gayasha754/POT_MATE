@@ -6,7 +6,6 @@ import useAuth from "../../hooks/useAuth";
 import SellerSideBar from "./SellerSideBar";
 
 const ADD_PRODUCT_URL = "sellers/Settings";
-const UPLOAD_URL = "upload/products";
 
 const Settings = () => {
   const { auth } = useAuth();
@@ -78,7 +77,7 @@ const Settings = () => {
           <h1 className="m-16 text-2xl">
           <h1 className="m-16 text-2xl">
             <form onSubmit={handleSubmit} method="POST">
-              <div className="mb-6">
+              {/* <div className="mb-6">
                 <label
                   for="Username"
                   className="block mb-2 text-sm font-medium text-gray-900"
@@ -98,7 +97,7 @@ const Settings = () => {
                   placeholder="Sashini"
                   required
                 />
-              </div>
+              </div> */}
               <div className="mb-6">
                 <label
                   for="Email"
@@ -115,7 +114,7 @@ const Settings = () => {
                       supplierName: e.target.value,
                     })
                   }
-                  className="text-sm w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 focus:outline-none focus:bg-white focus:border-gray-500"
+                  className="mt-5 text-sm w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 focus:outline-none focus:bg-white focus:border-gray-500"
                   placeholder="sashig@gmail.com"
                   required
                 />
@@ -137,7 +136,7 @@ const Settings = () => {
                       supplierName: e.target.value,
                     })
                   }
-                  className="text-sm w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 focus:outline-none focus:bg-white focus:border-gray-500"
+                  className="mt-5 text-sm w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 focus:outline-none focus:bg-white focus:border-gray-500"
                   placeholder="Old Password"
                   required
                 />

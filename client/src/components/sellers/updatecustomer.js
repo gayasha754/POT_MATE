@@ -5,7 +5,7 @@ import NavBar from "../NavBar";
 import useAuth from "../../hooks/useAuth";
 import SellerSideBar from "./SellerSideBar";
 
-const ADD_CUSTOMER_URL = "sellers/updatecustomer";
+const ADD_CUSTOMER_URL = "sellers/Updatecustomer";
 
 
 const UpdateCustomer = () => {
