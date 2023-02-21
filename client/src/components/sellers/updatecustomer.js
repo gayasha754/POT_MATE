@@ -7,7 +7,6 @@ import SellerSideBar from "./SellerSideBar";
 
 const ADD_CUSTOMER_URL = "sellers/Updatecustomer";
 
-
 const UpdateCustomer = () => {
   const { auth } = useAuth();
   const navigateTo = useNavigate();
@@ -16,10 +15,8 @@ const UpdateCustomer = () => {
     username: "",
     email: "",
     password: "",
-    
   });
 
-  
   const handleSubmit = async (e) => {
     console.log("Handle submit function");
     e.preventDefault();
@@ -29,24 +26,19 @@ const UpdateCustomer = () => {
       password: customers.password,
     };
 
-    // try {
-    //   await 
-      axios.post(ADD_CUSTOMER_URL, data).then((res) => {
-        if (res.data.error) {
-          console.log(`${res.data.error}`);
-        } else if (res.data.success) {
-          setcustomers({
-            username: "",
-            email: "",
-            password: "",
-          });
-          window.alert("Customer successfully added");
-          navigateTo("/sellers/profile/customers/");
-        }
-      });
-    // } catch (err) {
-    //   console.log(err);
-    // }
+    axios.post(ADD_CUSTOMER_URL, data).then((res) => {
+      if (res.data.error) {
+        console.log(`${res.data.error}`);
+      } else if (res.data.success) {
+        setcustomers({
+          username: "",
+          email: "",
+          password: "",
+        });
+        window.alert("Customer successfully added");
+        navigateTo("/sellers/profile/customers/");
+      }
+    });
   };
 
   return (
@@ -133,7 +125,6 @@ const UpdateCustomer = () => {
                 />
               </div>
 
-              
               <button
                 type="submit"
                 className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"

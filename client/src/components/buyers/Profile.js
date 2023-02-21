@@ -7,19 +7,20 @@ import ProductsSideBar from "../ProductsSideBar";
 
 const ADD_PROFILE_URL = "/profile";
 
+//regex for validations
+const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+const EMAIL_REGEX = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
+
 const Profile = () => {
   const { auth } = useAuth();
   const navigateTo = useNavigate();
 
+  const [type, setType] = useState("password");
+
   const [listings, setListings] = useState({
-    productName: "",
-    supplierName: "",
-    supplierContactNo: "",
-    supplierEmail: "",
-    stockAmount: "",
-    price: "",
-    discount: "",
-    unitWeight: "",
+    username: "",
+    email: "",
+    newPassword: "",
   });
 
   const handleSelectCategory = (e) => {
@@ -31,15 +32,9 @@ const Profile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     let data = {
-      productName: listings.productName,
-      supplierName: listings.supplierName,
-      supplierContactNo: listings.supplierContactNo,
-      supplierEmail: listings.supplierEmail,
-      stockAmount: listings.stockAmount,
-      price: listings.price,
-      discount: listings.discount,
-      unitWeight: listings.unitWeight,
-      category: listings.category,
+      username: listings.username,
+      email: listings.email,
+      newPassword: listings.newPassword,
     };
 
     try {
@@ -48,15 +43,9 @@ const Profile = () => {
           console.log(`${res.data.error}`);
         } else {
           setListings({
-            productName: "",
-            supplierName: "",
-            supplierContactNo: "",
-            supplierEmail: "",
-            stockAmount: "",
-            price: "",
-            discount: "",
-            unitWeight: "",
-            category: "",
+            username: "",
+            email: "",
+            newPassword: "",
           });
 
           navigateTo("/");
@@ -94,11 +83,11 @@ const Profile = () => {
                 </label>
                 <input
                   type="text"
-                  value={listings.productName}
+                  value={listings.username}
                   onChange={(e) =>
                     setListings({
                       ...listings,
-                      productName: e.target.value,
+                      username: e.target.value,
                     })
                   }
                   className="text-sm w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 focus:outline-none focus:bg-white focus:border-gray-500"
@@ -115,11 +104,11 @@ const Profile = () => {
                 </label>
                 <input
                   type="text"
-                  value={listings.supplierName}
+                  value={listings.email}
                   onChange={(e) =>
                     setListings({
                       ...listings,
-                      supplierName: e.target.value,
+                      email: e.target.value,
                     })
                   }
                   className="text-sm w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 focus:outline-none focus:bg-white focus:border-gray-500"
@@ -135,27 +124,27 @@ const Profile = () => {
                 >
                   Change password:
                 </label>
-                <input
-                  type="text"
-                  value={listings.supplierName}
+                {/* <input
+                  type={type}
+                  value={listings.oldPassword}
                   onChange={(e) =>
                     setListings({
                       ...listings,
-                      supplierName: e.target.value,
+                      oldPassword: e.target.value,
                     })
                   }
                   className="text-sm w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 focus:outline-none focus:bg-white focus:border-gray-500"
                   placeholder="Old Password"
                   required
-                />
-                <br /> <br />
+                /> */}
+                <br />
                 <input
-                  type="text"
-                  value={listings.supplierName}
+                  type={type}
+                  value={listings.password}
                   onChange={(e) =>
                     setListings({
                       ...listings,
-                      supplierName: e.target.value,
+                      password: e.target.value,
                     })
                   }
                   className="text-sm w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 focus:outline-none focus:bg-white focus:border-gray-500"
@@ -165,12 +154,12 @@ const Profile = () => {
                 <br />
                 <br />
                 <input
-                  type="text"
-                  value={listings.supplierName}
+                  type={type}
+                  value={listings.newPassword}
                   onChange={(e) =>
                     setListings({
                       ...listings,
-                      supplierName: e.target.value,
+                      newPassword: e.target.value,
                     })
                   }
                   className="text-sm w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 focus:outline-none focus:bg-white focus:border-gray-500"
@@ -178,9 +167,7 @@ const Profile = () => {
                   required
                 />
               </div>
-
               <br />
-
               <button
                 type="submit"
                 className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
