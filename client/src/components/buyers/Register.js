@@ -359,7 +359,7 @@ const Register = () => {
                     />
                     <div
                       onClick={handleToggle}
-                      class=" pl-4 pr-3 flex items-center text-sm leading-5"
+                      class=" pl-4 pr-3 flex items-center text-sm leading-5 right-20"
                     >
                       <Icon icon={icon} size={20} />
                     </div>

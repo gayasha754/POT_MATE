@@ -1,11 +1,10 @@
-import React, { useState, useRef } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import React, { useState, useRef, useEffect} from "react";
+import { NavLink, useNavigate,useParams } from "react-router-dom";
 import axios from "../../api/axios";
 import NavBar from "../NavBar";
 import useAuth from "../../hooks/useAuth";
-import ProductsSideBar from "../ProductsSideBar";
 
-const ADD_PROFILE_URL = "/profile";
+const UPDATE_PROFILE_URL = "/profile";
 
 //regex for validations
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -17,11 +16,38 @@ const Profile = () => {
 
   const [type, setType] = useState("password");
 
+  // const { id } = useParams();
+  // console.log(id)
+  const GET_USER_DETAIL_URL = `buyers/profile`;
+
+  const [ user, setUsers] = useState();
+
+  // console.log("User id ->",id)
+
+  useEffect(() => {
+    const data = {
+      buyerId: auth.user.id,
+    };
+  console.log("User id ->",data)
+
+    axios.get(GET_USER_DETAIL_URL, data).then((response) => {
+      //  console.log(" Data in profile-> ",response.data.user[0])
+      setUsers(response.data.users)
+      console.log("user: ",user)
+    })
+  }, []); 
+
   const [listings, setListings] = useState({
     username: "",
     email: "",
     newPassword: "",
   });
+
+  useEffect(() => {
+    setListings({ ...user });
+  }, [user]);
+
+  console.log("Customer Data after UseEffect ->", listings);
 
   const handleSelectCategory = (e) => {
     e.preventDefault();
@@ -30,13 +56,18 @@ const Profile = () => {
   };
 
   const handleSubmit = async (e) => {
+    console.log("Handle submit function");
     e.preventDefault();
     let data = {
-      username: listings.username,
-      email: listings.email,
-      newPassword: listings.newPassword,
+      // username: listings.username,
+      // email: listings.email,
+      // newPassword: listings.newPassword,
+      ...listings,
     };
 
+    console.log("Updated Data on updateStock js ->", data)
+
+/*
     try {
       await axios.post(ADD_PROFILE_URL, data).then((res) => {
         if (res.data.error) {
@@ -53,7 +84,22 @@ const Profile = () => {
       });
     } catch (err) {
       console.log(err);
-    }
+    }*/
+
+    axios.post(UPDATE_PROFILE_URL, data).then((res) => {
+      if (res.data.error) {
+        console.log(`${res.data.error}`);
+      } else if (res.data.success) {
+        setListings({
+          username: "",
+          email: "",
+          newPassword: "",
+        });
+        window.alert("Profile successfully Updated");
+        navigateTo("/profile");
+      }
+    });
+
   };
 
   return (

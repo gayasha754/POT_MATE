@@ -360,6 +360,27 @@ const getCompletedOrdersTop = (buyerID, res) => {
   });
 };
 
+const getUserDetails = (buyerId, res) => {
+  return new Promise((resolve, reject) => {
+    db.getConnection((err, connection) => {
+      if (err) {
+        return res.json({ error: "Internal Server Error" });
+      } else {
+        const sql = "SELECT username, email, password FROM buyers WHERE id=? ";
+
+        connection.query(sql, [buyerId], (error, results) => {
+          connection.release();
+          if (error) {
+            reject();
+          } else {
+            resolve(results);
+          }
+        });
+      }
+    });
+  });
+};
+
 module.exports = {
   createBuyer,
   findBuyer,
@@ -376,4 +397,5 @@ module.exports = {
   updateProductRating,
   getOrdersTop,
   getCompletedOrdersTop,
+  getUserDetails,
 };

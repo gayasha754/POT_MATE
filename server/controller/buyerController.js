@@ -228,6 +228,23 @@ const getOrdersCompletedTop = async (req, res) => {
   }
 };
 
+const getUserdetails = async (req, res) => {
+  console.log("here");
+  const buyerId = req.body;
+  // const { buyerID } = req.body;
+  console.log("this", buyerId);
+  try {
+    await buyerModel.getUserDetails(buyerId, res).then((response) => {
+      console.log(results, 'results');
+      const requests = response;
+      console.log(requests);
+      res.json({ requests: requests });
+    });
+  } catch (err) {
+    return res.json({ error: "Internal Server Error" });
+  }
+};
+
 module.exports = {
   createBuyer,
   LoginBuyer,
@@ -238,4 +255,5 @@ module.exports = {
   submitReview,
   getCompletedOrders,
   getOrdersCompletedTop,
+  getUserdetails,
 };

@@ -5,7 +5,7 @@ import NavBar from "../NavBar";
 import useAuth from "../../hooks/useAuth";
 import SellerSideBar from "./SellerSideBar";
 
-const ADD_CUSTOMER_URL = "sellers/Updatecustomer";
+const UPDATE_CUSTOMER_URL = "sellers/Updatecustomer";
 
 const UpdateCustomer = () => {
   const { auth } = useAuth();
@@ -26,7 +26,7 @@ const UpdateCustomer = () => {
       password: customers.password,
     };
 
-    axios.post(ADD_CUSTOMER_URL, data).then((res) => {
+    axios.post(UPDATE_CUSTOMER_URL, data).then((res) => {
       if (res.data.error) {
         console.log(`${res.data.error}`);
       } else if (res.data.success) {

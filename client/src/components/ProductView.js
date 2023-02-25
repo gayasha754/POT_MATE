@@ -84,6 +84,7 @@ const ProductView = () => {
             <br />
             <input
               type="number"
+              min="1"
               class="mt-5 px-5 py-3 border border-gray-600 rounded w-20 h-10"
               value={qt}
               onChange={(e) => {
