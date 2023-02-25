@@ -14,6 +14,10 @@ const CustomizePotForm = () => {
   const { auth } = useAuth();
   const navigateTo = useNavigate();
 
+  //Font size
+  const [product, setProduct] = useState();
+  const [qt, setQt] = useState(9);
+
   const [listings, setListings] = useState({
     productName: "",
     supplierName: "",
@@ -332,11 +336,12 @@ const CustomizePotForm = () => {
 
                   <input
                     type="number"
+                    min="9"
                     class="text-sm mt-5 px-5 py-3 border border-gray-600 rounded w-20 h-10"
-                    //   value={10}
+                    value={qt}
                     onChange={(e) => {
-                      // setQt(e.target.value);
-                      // setProduct({ ...product, qt: e.target.value });
+                      setQt(e.target.value);
+                      setProduct({ ...product, qt: e.target.value });
                     }}
                   />
                 </div>

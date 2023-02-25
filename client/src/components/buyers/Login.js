@@ -128,7 +128,7 @@ const Login = () => {
                   />
                   <div
                     onClick={handleToggle}
-                    class="absolute top-5 right-8 h-16 right-20 hover: pr-3 flex items-center text-sm leading-5 "
+                    class="absolute top-5 right-8 h-16 hover: pr-0 flex items-center text-sm leading-5 "
                   >
                     <Icon icon={icon} size={20} />
                   </div>

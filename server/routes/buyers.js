@@ -13,4 +13,7 @@ router
   .route("/orders/completed/top")
   .post(buyerController.getOrdersCompletedTop);
 
+router.route("/profile").post(buyerController.getUserdetails);
+
+
 module.exports = router;
