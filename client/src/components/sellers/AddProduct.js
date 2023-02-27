@@ -199,7 +199,7 @@ const AddProduct = () => {
               <div className="flex flex-wrap -mx-3 mb-6">
                 <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
                   <label
-                    className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                    className="block mb-2 text-sm font-medium text-gray-900"
                     for="grid-city"
                   >
                     Stock Amount
@@ -219,7 +219,7 @@ const AddProduct = () => {
                 </div>
                 <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
                   <label
-                    className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                    className="block mb-2 text-sm font-medium text-gray-900"
                     for="grid-city"
                   >
                     Price
@@ -239,7 +239,7 @@ const AddProduct = () => {
                 </div>
                 <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
                   <label
-                    className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                    className="block mb-2 text-sm font-medium text-gray-900"
                     for="grid-zip"
                   >
                     Discount /Rs.
@@ -260,10 +260,10 @@ const AddProduct = () => {
                 </div>
                 <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
                   <label
-                    className="block tracking-wide text-gray-700 text-xs font-bold mb-2"
+                    className="block mb-2 text-sm font-medium text-gray-900"
                     for="grid-zip"
                   >
-                    UNIT WEIGHT /g
+                    Unit Weight /g
                   </label>
                   <input
                     className="text-sm w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 focus:outline-none focus:bg-white focus:border-gray-500"
