@@ -101,17 +101,18 @@ const createOrder = (buyerID, subTotal, total) => {
 };
 
 const addOrderAddress = (orderID, address) => {
-  const { city, country, line1, line2, postal_code } = address;
+  const { city, line1, line2 } = address;
   return new Promise((resolve, reject) => {
     db.getConnection((err, connection) => {
       if (err) {
         console.log(err);
       } else {
         const sql =
-          "INSERT INTO order_address (orderID, line1, line2, city, postalCode) VALUES (?, ? , ? , ?, ?)";
+        "INSERT INTO order_address (orderID, line1, line2, city) VALUES (?, ? , ? , ?)";
+         // "INSERT INTO order_address (orderID, line1, line2, city, postalCode) VALUES (?, ? , ? , ?, ?)";
         connection.query(
           sql,
-          [orderID, line1, line2, city, country, postal_code],
+          [orderID, line1, line2, city],
           (err, results) => {
             connection.release();
             if (err) {
@@ -140,7 +141,6 @@ const placeOrder = (orderID, cart) => {
         [
           orderID,
           cart.productID,
-          cart.sellerID,
           cart.quantity,
           cart.price,
           "Pending",

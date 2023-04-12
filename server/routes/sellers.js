@@ -22,6 +22,10 @@ router
 router.route("/updateproduct").post(sellerController.updateProduct);
 router.route("/updatestock").post(sellerController.updateStock);
 
+router.route("/getsales").post(sellerController.getSalesCount);
+router.route("/getorders").post(sellerController.getOrdersCount);
+router.route("/getProducts").post(sellerController.getProductsCount);
+
 
 
 module.exports = router;

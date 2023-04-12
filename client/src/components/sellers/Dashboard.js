@@ -5,6 +5,43 @@ import SellerSideBar from "./SellerSideBar";
 import NavBar from "../NavBar";
 
 const Dashboard = () => {
+
+  const { auth } = useAuth();
+
+  const [salescount, setSalesCount] = useState();
+  const [orderscount, setOrdersCount] = useState();
+  const [productscount, setProductsCount] = useState();
+
+
+  const GET_SALES_URL = "sellers/getsales";
+  const GET_ORDERS_URL = "sellers/getorders";
+  const GET_PRODUCTS_URL = "sellers/getProducts";
+
+  useEffect(() => {
+    const data = {
+      sellerID: auth.user.sellerID,
+    };
+    axios.post(GET_SALES_URL, data).then((response) => {
+      setSalesCount(response.data.request);
+    });
+  }, []);
+  useEffect(() => {
+    const data = {
+      sellerID: auth.user.sellerID,
+    };
+    axios.post(GET_ORDERS_URL, data).then((response) => {
+      setOrdersCount(response.data.request);
+    });
+  }, []);
+  useEffect(() => {
+    const data = {
+      sellerID: auth.user.sellerID,
+    };
+    axios.post(GET_PRODUCTS_URL, data).then((response) => {
+      setProductsCount(response.data.request);
+    });
+  }, []);
+
   return (
     <>
       <NavBar />
@@ -45,8 +82,15 @@ const Dashboard = () => {
                       Total sales
                     </p>
                   </div>
-                  <p className="text-gray-600 text-4xl text-center w-full">
+                  {/* <p className="text-gray-600 text-4xl text-center w-full">
                     Rs. 12000
+                  </p> */}
+                  <p className="text-gray-600 text-4xl text-center w-full">
+                    Rs 
+                    {/* {salescount?.sales == "0"
+                      ? parseFloat(salescount?.sales).toFixed(2)
+                      : "0.00"} */}
+                      {salescount?.sales.toFixed(2)}
                   </p>
                 </div>
 
@@ -76,8 +120,11 @@ const Dashboard = () => {
                       Total Products
                     </p>
                   </div>
-                  <p className="text-gray-600 text-4xl text-center w-full">
+                  {/* <p className="text-gray-600 text-4xl text-center w-full">
                     120
+                  </p> */}
+                  <p className="text-gray-600 text-4xl text-center w-full">
+                    {productscount?.product_count}
                   </p>
                 </div>
 
@@ -107,8 +154,11 @@ const Dashboard = () => {
                       Total Orders
                     </p>
                   </div>
-                  <p className="text-gray-600 text-4xl text-center w-full">
+                  {/* <p className="text-gray-600 text-4xl text-center w-full">
                     540
+                  </p> */}
+                  <p className="text-gray-600 text-4xl text-center w-full">
+                    {orderscount?.order_count}
                   </p>
                 </div>
               </div>

@@ -313,6 +313,75 @@ const updateShippingStatus = (orderItemID, res) => {
   });
 };
 
+//getting sales totL
+const getSalesCount = (sellerID, res) => {
+  return new Promise((resolve, reject) => {
+    db.getConnection((err, connection) => {
+      if (err) {
+        return res.status(500).json({ error: "Internal Server Error!" });
+      } else {
+        const sql =
+          "SELECT SUM(orderPrice) AS sales FROM order_items";
+        connection.query(sql,  (error, results) => {
+          connection.release();
+          if (error) {
+            reject();
+          } else {
+            console.log(results[0]);
+            resolve(results[0]);
+          }
+        });
+      }
+    });
+  });
+};
+
+//getting order count
+const getOrdersCount = (sellerID, res) => {
+  return new Promise((resolve, reject) => {
+    db.getConnection((err, connection) => {
+      if (err) {
+        return res.status(500).json({ error: "Internal Server Error!" });
+      } else {
+        const sql =
+          "SELECT COUNT(orderItemID) AS order_count FROM order_items";
+        connection.query(sql, (error, results) => {
+          connection.release();
+          if (error) {
+            reject();
+          } else {
+            console.log(results[0]);
+            resolve(results[0]);
+          }
+        });
+      }
+    });
+  });
+};
+
+//getting products count
+const getProductsCount = (sellerID, res) => {
+  return new Promise((resolve, reject) => {
+    db.getConnection((err, connection) => {
+      if (err) {
+        return res.status(500).json({ error: "Internal Server Error!" });
+      } else {
+        const sql =
+          "SELECT COUNT(id) AS product_count FROM products";
+        connection.query(sql, (error, results) => {
+          connection.release();
+          if (error) {
+            reject();
+          } else {
+            console.log(results[0]);
+            resolve(results[0]);
+          }
+        });
+      }
+    });
+  });
+};
+
 const updateProduct = (
   productName,
   supplierName,
@@ -422,4 +491,8 @@ module.exports = {
   updateProduct,
   updateStock,
   getStockDetails,
+  getSalesCount,
+  getOrdersCount,
+  getProductsCount,
+
 };
