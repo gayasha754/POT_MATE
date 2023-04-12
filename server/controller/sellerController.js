@@ -401,6 +401,48 @@ const getOneStock = async (req, res) => {
   }
 };
 
+const getSalesCount = async (req, res) => {
+  const { sellerID } = req.body;
+  try {
+    await sellerModel.getSalesCount(sellerID, res).then((response) => {
+      const details = response;
+      res.json({
+        request: details,
+      });
+    });
+  } catch (err) {
+    res.json({ error: err });
+  }
+};
+const getOrdersCount = async (req, res) => {
+  const { sellerID } = req.body;
+  try {
+    await sellerModel.getOrdersCount(sellerID, res).then((response) => {
+      const details = response;
+      res.json({
+        request: details,
+      });
+    });
+  } catch (err) {
+    res.json({ error: err });
+  }
+};
+
+const getProductsCount = async (req, res) => {
+  const { sellerID } = req.body;
+  try {
+    await sellerModel.getProductsCount(sellerID, res).then((response) => {
+      const details = response;
+      res.json({
+        request: details,
+      });
+    });
+  } catch (err) {
+    res.json({ error: err });
+  }
+};
+
+
 module.exports = {
   loginSeller,
   addProduct,
@@ -417,5 +459,8 @@ module.exports = {
   updateProduct,
   updateStock,
   getOneStock,
+  getSalesCount,
+  getOrdersCount,
+  getProductsCount,
   
 };
