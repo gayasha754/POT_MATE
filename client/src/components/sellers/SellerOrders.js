@@ -84,12 +84,17 @@ const SellerOrders = () => {
           </p>
           <div>
             <div className="grid grid-cols-4 text-center m-8">
-              <div className="flex justify-center items-center font-medium col-span-2 text-gray-400 w-full h-12 mx-auto">
+              <div className="flex justify-center items-center font-medium text-gray-400 w-full h-12 mx-auto">
                 Item
               </div>
               <div className="flex justify-center items-center font-medium text-gray-400 w-full h-12">
+                Address
+              </div>
+             
+              <div className="flex justify-center items-center font-medium text-gray-400 w-full h-12">
                 Ordered Date
               </div>
+              
               <div className="flex justify-center items-center font-medium text-gray-400 w-full h-12">
                 Shipped
               </div>
@@ -99,7 +104,7 @@ const SellerOrders = () => {
               return (
                 <div key={item.orderItemID}>
                   <div className="grid grid-cols-4 text-center m-8 mt-0 shadow-md rounded-md">
-                    <div className="flex justify-center text-base items-center col-span-2 w-full h-36">
+                    <div className="flex justify-center text-base items-center w-full h-36">
                       <div className="flex items-center">
                         <img
                           src={`http://localhost:3500/products/${item.image}`}
@@ -122,6 +127,12 @@ const SellerOrders = () => {
                         </div>
                       </div>
                     </div>
+                    <div class="flex justify-center font-medium items-center w-full h-24 text-gray-500">
+                    {item.line1+
+                    item.line2+                  
+                    item.city}
+                  </div>
+
                     <div className="flex justify-center text-base items-center w-full ">
                       {new Date(item.datetime).getDate() +
                         "-" +

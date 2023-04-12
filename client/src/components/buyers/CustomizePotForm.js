@@ -120,6 +120,8 @@ const CustomizePotForm = () => {
         <section className="col-span-4">
           <h1 className="m-16 text-2xl">
             <form onSubmit={handleSubmit} method="POST">
+
+              {/* Select a Pot */}
               <div className="mb-6">
                 <label
                   for="email"
@@ -141,13 +143,13 @@ const CustomizePotForm = () => {
                   required
                 />
                 <div className=" mt-8 flex flex-row">
-                  <div className="flex justify-center font-medium items-center w-full h-24">
+                  <div className="flex justify-left font-medium items-center w-full h-24">
                     <img
                       src={`http://localhost:3500/products/pot1.jpg`}
                       className="m-4 h-full"
                     />
                   </div>
-                  <div className=" flex justify-center font-medium items-center w-full h-24">
+                  {/* <div className=" flex justify-center font-medium items-center w-full h-24">
                     <img
                       src={`http://localhost:3500/products/pot2.jpg`}
                       className="m-4 h-full"
@@ -176,9 +178,11 @@ const CustomizePotForm = () => {
                       src={`http://localhost:3500/products/pot8.jpg`}
                       className="m-4 h-full"
                     />
-                  </div>
+                  </div> */}
                 </div>
               </div>
+
+              {/* Select a Plant */}
               <div className="mb-6">
                 <label
                   for=""
@@ -200,13 +204,13 @@ const CustomizePotForm = () => {
                   required
                 />
                 <div className=" mt-8 flex flex-row">
-                  <div className="flex justify-center font-medium items-center w-full h-24">
+                  <div className="flex justify-left font-medium items-center w-full h-24">
                     <img
                       src={`http://localhost:3500/products/plant1.jpg`}
                       className="m-4 h-full"
                     />
                   </div>
-                  <div className=" flex justify-center font-medium items-center w-full h-24">
+                  {/* <div className=" flex justify-center font-medium items-center w-full h-24">
                     <img
                       src={`http://localhost:3500/products/plant2.jpg`}
                       className="m-4 h-full"
@@ -223,11 +227,12 @@ const CustomizePotForm = () => {
                       src={`http://localhost:3500/products/plant4.jpg`}
                       className="m-4 h-full"
                     />
-                  </div>
+                  </div> */}
                   
                 </div>
               </div>
 
+                {/* Caption */}
               <div className="mb-6">
                 <label
                   for=""
@@ -250,6 +255,7 @@ const CustomizePotForm = () => {
                 />
               </div>
 
+                {/* Upload Files */}
               <div className="flex mb-6">
                 <label
                   htmlFor="file_input"
@@ -278,6 +284,7 @@ const CustomizePotForm = () => {
                 </button>
               </div>
 
+                {/* Select Font Style* */}
               <div className="mb-6 w-full">
                 <label
                   for="email"
@@ -300,6 +307,8 @@ const CustomizePotForm = () => {
                   <option value="4">Poppins</option>
                 </select>
               </div>
+
+              {/* Font Colour * */}
               <div className="mb-6 w-full">
                 <label
                   for="Font Colour"
@@ -325,6 +334,7 @@ const CustomizePotForm = () => {
                 </select>
               </div>
 
+              {/* Font size * */}
               <div className="flex flex-wrap -mx-3 mb-6">
                 <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
                   <label
@@ -346,6 +356,53 @@ const CustomizePotForm = () => {
                   />
                 </div>
               </div>
+
+              {/* Delivery Address */}
+              <div className="mb-6">
+                <label
+                  for=""
+                  className="block mb-2 text-sm font-medium text-gray-900"
+                >
+                  Delivery Address: 
+                </label>
+                <input
+                  type="text"
+                  value={listings.supplierName}
+                  onChange={(e) =>
+                    setListings({
+                      ...listings,
+                      supplierName: e.target.value,
+                    })
+                  }
+                  className="text-sm w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 focus:outline-none focus:bg-white focus:border-gray-500"
+                  placeholder="Delivery Address"
+                  required
+                />
+              </div>
+
+               {/* Delivery Address */}
+               <div className="mb-6">
+                <label
+                  for=""
+                  className="block mb-2 text-sm font-medium text-gray-900"
+                >
+                  Contact Number: 
+                </label>
+                <input
+                  type="text"
+                  value={listings.supplierName}
+                  onChange={(e) =>
+                    setListings({
+                      ...listings,
+                      supplierName: e.target.value,
+                    })
+                  }
+                  className="text-sm w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 focus:outline-none focus:bg-white focus:border-gray-500"
+                  placeholder="Contact Number"
+                  required
+                />
+              </div>
+
 
               <br />
 

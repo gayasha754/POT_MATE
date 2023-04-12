@@ -102,17 +102,17 @@ const Customers = () => {
                     {customer.email}
                   </div>
                   <div class="flex justify-center font-medium items-center w-full h-24 text-gray-500">
-                    {customer.Date}
+                    {customer.DateTime}
                   </div>
                   <div class="flex justify-center font-medium items-center w-full h-24 text-gray-500">
-                    <button class="border-2 border-gray-200 hover:bg-gray-500 hover:text-white p-2">
+                    {/* <button class="border-2 border-gray-200 hover:bg-gray-500 hover:text-white p-2">
                     <Link to="/sellers/updatecustomer">
                         Edit
                       </Link>
                     </button>
                     <button class="border-2 border-gray-200 hover:bg-gray-500 hover:text-white p-2">
                       Delete
-                    </button>
+                    </button> */}
                   </div>
                 </div>
               </div>
