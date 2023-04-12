@@ -226,8 +226,9 @@ const getPendingOrders = (res) => {
         return res.json({ error: "Internal Server Error" });
       } else {
         const sql =
-          "SELECT order_items.*, products.id, products.productName, products.image, orders.datetime FROM order_items INNER JOIN orders ON order_items.orderID = orders.orderID INNER JOIN products ON order_items.productID = products.id WHERE order_items.status = ? ORDER BY order_items.orderItemID";
-        connection.query(sql, ["Pending"], (err, results) => {
+          // "SELECT order_items.*, products.id, products.productName, products.image, orders.datetime FROM order_items INNER JOIN orders ON order_items.orderID = orders.orderID INNER JOIN products ON order_items.productID = products.id WHERE order_items.status = ? ORDER BY order_items.orderItemID";
+        "SELECT order_items.*, products.id, products.productName, products.image, orders.datetime, order_address.line1, order_address.line2, order_address.city, order_address.postalCode FROM order_items INNER JOIN orders ON order_items.orderID = orders.orderID INNER JOIN order_address ON orders.orderID = order_address.orderID INNER JOIN products ON order_items.productID = products.id WHERE order_items.status = ? ORDER BY order_items.orderItemID;"
+          connection.query(sql, ["Pending"], (err, results) => {
           connection.release();
           if (err) {
             reject();
@@ -248,7 +249,7 @@ const getShippedOrders = (res) => {
         return res.json({ error: "Internal Server Error" });
       } else {
         const sql =
-          "SELECT order_items.*, products.id, products.productName, products.image, orders.datetime FROM order_items INNER JOIN orders ON order_items.orderID = orders.orderID INNER JOIN products ON order_items.productID = products.id WHERE order_items.status = ? ORDER BY order_items.orderItemID";
+          "SELECT order_items.*, products.id, products.productName, products.image, orders.datetime, order_address.line1, order_address.line2, order_address.city, order_address.postalCode FROM order_items INNER JOIN orders ON order_items.orderID = orders.orderID INNER JOIN order_address ON orders.orderID = order_address.orderID INNER JOIN products ON order_items.productID = products.id WHERE order_items.status = ? ORDER BY order_items.orderItemID;";
         connection.query(sql, ["Delivered"], (err, results) => {
           connection.release();
           if (err) {

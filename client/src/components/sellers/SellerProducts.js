@@ -130,9 +130,9 @@ const SellerProducts = () => {
                         Edit
                       </Link>
                     </button>
-                    <button class="border-2 border-gray-200 hover:bg-gray-500 hover:text-white p-2">
+                    {/* <button class="border-2 border-gray-200 hover:bg-gray-500 hover:text-white p-2">
                       Delete
-                    </button>
+                    </button> */}
                   </div>
                 </div>
               </div>
