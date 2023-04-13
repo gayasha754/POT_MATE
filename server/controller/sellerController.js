@@ -442,6 +442,20 @@ const getProductsCount = async (req, res) => {
   }
 };
 
+const getAnnualSalesData = async (req, res) => {
+  const { sellerID } = req.body;
+  try {
+    await sellerModel.getAnnualSalesData(sellerID, res).then((response) => {
+      const details = response;
+      res.json({
+        request: details,
+      });
+    });
+  } catch (err) {
+    res.json({ error: err });
+  }
+};
+
 
 module.exports = {
   loginSeller,
@@ -462,5 +476,6 @@ module.exports = {
   getSalesCount,
   getOrdersCount,
   getProductsCount,
+  getAnnualSalesData
   
 };

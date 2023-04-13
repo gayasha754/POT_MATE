@@ -12,6 +12,7 @@
     "@testing-library/user-event": "^13.5.0",
     "autoprefixer": "^10.4.8",
     "axios": "^0.27.2",
+    "chart.js": "^4.2.1",
     "dotenv": "^16.0.1",
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.5.28",
@@ -53,6 +54,7 @@
     ]
   },
   "devDependencies": {
+    "source-map-loader": "^4.0.1",
     "tailwindcss": "^3.2.2"
   }
 }

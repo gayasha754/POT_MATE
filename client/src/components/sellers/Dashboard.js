@@ -3,6 +3,7 @@ import axios from "../../api/axios";
 import useAuth from "../../hooks/useAuth";
 import SellerSideBar from "./SellerSideBar";
 import NavBar from "../NavBar";
+import AnnualSalesData from "./AnnualSalesData";
 
 const Dashboard = () => {
 
@@ -18,26 +19,20 @@ const Dashboard = () => {
   const GET_PRODUCTS_URL = "sellers/getProducts";
 
   useEffect(() => {
-    const data = {
-      sellerID: auth.user.sellerID,
-    };
-    axios.post(GET_SALES_URL, data).then((response) => {
+    
+    axios.post(GET_SALES_URL).then((response) => {
       setSalesCount(response.data.request);
     });
   }, []);
   useEffect(() => {
-    const data = {
-      sellerID: auth.user.sellerID,
-    };
-    axios.post(GET_ORDERS_URL, data).then((response) => {
+    
+    axios.post(GET_ORDERS_URL).then((response) => {
       setOrdersCount(response.data.request);
     });
   }, []);
   useEffect(() => {
-    const data = {
-      sellerID: auth.user.sellerID,
-    };
-    axios.post(GET_PRODUCTS_URL, data).then((response) => {
+    
+    axios.post(GET_PRODUCTS_URL).then((response) => {
       setProductsCount(response.data.request);
     });
   }, []);
@@ -163,6 +158,17 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
+            <div className="flex flex-col justify-center items-center mx-16 ">
+              <div className="grid grid-cols-4">
+                <div className="col-span-4 text-gray-600 text-3xl p-32 px-32 mt-0">
+                  Total Sales During The Year
+                </div>
+                <div className="col-span-4">
+                  <AnnualSalesData />
+                </div>
+              </div>
+            </div>
+            
           </section>
         </section>
       </main>
