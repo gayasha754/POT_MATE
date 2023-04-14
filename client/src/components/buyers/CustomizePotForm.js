@@ -4,46 +4,68 @@ import axios from "../../api/axios";
 import NavBar from "../NavBar";
 import useAuth from "../../hooks/useAuth";
 import ProductsSideBar from "../ProductsSideBar";
-import po1 from "../../images/best5.png";
-import pot2 from "../../images/best5.png";
 
-const ADD_PRODUCT_URL = "/CustomizePotForm";
-const UPLOAD_URL = "upload/customizeOrderCaptions";
+const ADD_CUSTOMORDER_URL = "buyers/addcustomizedpotorder";
+const UPLOADCAPTION_URL = "upload/products";
 
 const CustomizePotForm = () => {
   const { auth } = useAuth();
   const navigateTo = useNavigate();
 
+  const [listings, setListings] = useState({
+    plant_id: "",
+    pot_id: "",
+    caption_image: "",
+    font_style: "",
+    test_color: "",
+    font_size: "",
+    order_address: "",
+    contact: "",
+    status: "",
+  });
+
+  const [fontSize, setfontSize] = useState();
+
   //Font size
-  const [product, setProduct] = useState();
   const [qt, setQt] = useState(9);
 
-  const [listings, setListings] = useState({
-    productName: "",
-    supplierName: "",
-    supplierContactNo: "",
-    supplierEmail: "",
-    stockAmount: "",
-    price: "",
-    discount: "",
-    unitWeight: "",
-  });
+ 
+  const [fontStyle, setFontStyle] = useState();
+  const [testColor, setTestColor] = useState();
+  const [font, setFontSize] = useState();
+  const [potNo, setPotNo] = useState();
+  const [plantNo, setPlantNo] = useState();
 
-  const [images, setImages] = useState({
-    image1: "",
-  });
 
-  const [imageNames, setImageNames] = useState({
-    image1: "",
-  });
 
-  const [category, setCategory] = useState();
-
-  const handleSelectCategory = (e) => {
+  const handleSelectFontStyle = (e) => {
     e.preventDefault();
+    setFontStyle(parseInt(e.target.value));
+    setListings({ ...listings, font_style: parseInt(e.target.value) });
+  };
 
-    setCategory(parseInt(e.target.value));
-    setListings({ ...listings, category: parseInt(e.target.value) });
+  const handleSelectTestColor = (e) => {
+    e.preventDefault();
+    setTestColor(parseInt(e.target.value));
+    setListings({ ...listings, test_color: parseInt(e.target.value) });
+  };
+
+  const handleSelectFontSize = (e) => {
+    e.preventDefault();
+    setFontSize(parseInt(e.target.value));
+    setListings({ ...listings, font_size: parseInt(e.target.value) });
+  };
+  
+  const handleSelectPot = (e) => {
+    e.preventDefault();
+    setPotNo(parseInt(e.target.value));
+    setListings({ ...listings, pot_id: parseInt(e.target.value) });
+  };
+
+  const handleSelectPlant = (e) => {
+    e.preventDefault();
+    setPlantNo(parseInt(e.target.value));
+    setListings({ ...listings, plant_id: parseInt(e.target.value) });
   };
 
   const uploadImages = async (e) => {
@@ -51,10 +73,10 @@ const CustomizePotForm = () => {
     const formData = new FormData();
 
     //adding images
-    formData.append(images.image1.name, images.image1);
+    formData.append(listings.caption_image.name, listings.caption_image);
 
     try {
-      const res = await axios.post(UPLOAD_URL, formData, {
+      const res = await axios.post(UPLOADCAPTION_URL, formData, {
         headers: {
           "Contet-Type": "multipart/form-data",
         },
@@ -67,44 +89,46 @@ const CustomizePotForm = () => {
   };
 
   const handleSubmit = async (e) => {
+    console.log("Handle submit function");
     e.preventDefault();
     let data = {
-      productName: listings.productName,
-      supplierName: listings.supplierName,
-      supplierContactNo: listings.supplierContactNo,
-      supplierEmail: listings.supplierEmail,
-      stockAmount: listings.stockAmount,
-      price: listings.price,
-      discount: listings.discount,
-      unitWeight: listings.unitWeight,
-      category: listings.category,
-      image1: images.image1.name,
+      plant_id: listings.plant_id,
+      pot_id: listings.pot_id,
+      caption_image: listings.caption_image.name,
+      font_style: listings.font_style,
+      test_color: listings.test_color,
+      font_size: listings.font_size,
+      order_address: listings.order_address,
+      contact: listings.contact,
+      status: "pending",
     };
+    console.log("--------------caption_image: ",listings.caption_image.name);
+    console.log("--------------data: ",data);
 
     try {
-      await axios.post(ADD_PRODUCT_URL, data).then((res) => {
+      await 
+      axios.post(ADD_CUSTOMORDER_URL, data).then((res) => {
         if (res.data.error) {
+          
           console.log(`${res.data.error}`);
-        } else {
-          setImages({
-            image1: "",
-          });
+        } else if (res.data.success) {          
           setListings({
-            productName: "",
-            supplierName: "",
-            supplierContactNo: "",
-            supplierEmail: "",
-            stockAmount: "",
-            price: "",
-            discount: "",
-            unitWeight: "",
-            category: "",
+            plant_id: "",
+            pot_id: "",
+            caption_image: "",
+            font_style: "",
+            test_color: "",
+            font_size: "",
+            order_address: "",
+            contact: "",
+            status: "",
           });
-
+          window.alert("Order successfully added");
           navigateTo("/");
         }
       });
     } catch (err) {
+      window.alert("Order placement failed ");
       console.log(err);
     }
   };
@@ -124,62 +148,89 @@ const CustomizePotForm = () => {
               {/* Select a Pot */}
               <div className="mb-6">
                 <label
-                  for="email"
+                  for="Select a Pot"
                   className="block mb-2 text-sm font-medium text-gray-900"
                 >
                   Select a Pot
                 </label>
-                <input
+              
+          
+                {/* <input
                   type="text"
-                  value={listings.productName}
+                  value={listings.plant_id}
                   onChange={(e) =>
                     setListings({
                       ...listings,
-                      productName: e.target.value,
+                      plant_id: e.target.value,
                     })
                   }
                   className="text-sm w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 focus:outline-none focus:bg-white focus:border-gray-500"
-                  placeholder=""
+                  placeholder="Enter pot number from following pots"
                   required
-                />
+                /> */}
                 <div className=" mt-8 flex flex-row">
                   <div className="flex justify-left font-medium items-center w-full h-24">
+                    1
                     <img
                       src={`http://localhost:3500/products/pot1.jpg`}
                       className="m-4 h-full"
                     />
                   </div>
-                  {/* <div className=" flex justify-center font-medium items-center w-full h-24">
+                  <div className=" flex justify-center font-medium items-center w-full h-24">
+                    2
                     <img
                       src={`http://localhost:3500/products/pot2.jpg`}
                       className="m-4 h-full"
                     />
                   </div>
                   <div className="flex justify-center font-medium items-center w-full h-24">
+                    3
                     <img
                       src={`http://localhost:3500/products/pot3.jpg`}
                       className="m-4 h-full"
                     />
                   </div>
                   <div className=" flex justify-center font-medium items-center w-full h-24">
+                    4
                     <img
                       src={`http://localhost:3500/products/pot4.jpg`}
                       className="m-4 h-full"
                     />
                   </div>
                   <div className="flex justify-center font-medium items-center w-full h-24">
+                    5
                     <img
                       src={`http://localhost:3500/products/pot6.jpg`}
                       className="m-4 h-full"
                     />
                   </div>
                   <div className=" flex justify-center font-medium items-center w-full h-24">
+                    6
                     <img
                       src={`http://localhost:3500/products/pot8.jpg`}
                       className="m-4 h-full"
                     />
-                  </div> */}
+                  </div>
                 </div>
+                <div className=" mt-8 flex flex-row">
+                <select
+                  name=""
+                  id=""
+                  onChange={handleSelectPot}
+                  className="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                >
+                  <option value="0" aria-readonly>
+                    -Select a Pot Number-
+                  </option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                </select>
+                </div>
+
               </div>
 
               {/* Select a Plant */}
@@ -190,70 +241,70 @@ const CustomizePotForm = () => {
                 >
                   Select a Plant
                 </label>
-                <input
+                {/* <input
                   type="text"
-                  value={listings.supplierName}
+                  value={listings.pot_id}
                   onChange={(e) =>
                     setListings({
                       ...listings,
-                      supplierName: e.target.value,
+                      pot_id: e.target.value,
                     })
                   }
                   className="text-sm w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 focus:outline-none focus:bg-white focus:border-gray-500"
-                  placeholder=""
+                  placeholder="Enter plant number from following plants"
                   required
-                />
+                /> */}
                 <div className=" mt-8 flex flex-row">
                   <div className="flex justify-left font-medium items-center w-full h-24">
+                    1
                     <img
                       src={`http://localhost:3500/products/plant1.jpg`}
                       className="m-4 h-full"
                     />
                   </div>
-                  {/* <div className=" flex justify-center font-medium items-center w-full h-24">
+                  <div className=" flex justify-center font-medium items-center w-full h-24">
+                    2
                     <img
                       src={`http://localhost:3500/products/plant2.jpg`}
                       className="m-4 h-full"
                     />
                   </div>
                   <div className="flex justify-center font-medium items-center w-full h-24">
+                    3
                     <img
                       src={`http://localhost:3500/products/plant3.jpg`}
                       className="m-4 h-full"
                     />
                   </div>
                   <div className=" flex justify-center font-medium items-center w-full h-24">
+                    4
                     <img
                       src={`http://localhost:3500/products/plant4.jpg`}
                       className="m-4 h-full"
                     />
-                  </div> */}
+                  </div>
                   
                 </div>
+                <div className=" mt-8 flex flex-row">
+                <select
+                  name=""
+                  id=""
+                  onChange={handleSelectPlant}
+                  className="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                >
+                  <option value="0" aria-readonly>
+                    -Select a Plant Number-
+                  </option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                </select>
+                </div>
+
               </div>
 
-                {/* Caption */}
-              <div className="mb-6">
-                <label
-                  for=""
-                  className="block mb-2 text-sm font-medium text-gray-900"
-                >
-                  Write the caption to be printed (Word Limit : 5 words):
-                </label>
-                <input
-                  type="text"
-                  value={listings.supplierName}
-                  onChange={(e) =>
-                    setListings({
-                      ...listings,
-                      supplierName: e.target.value,
-                    })
-                  }
-                  className="text-sm w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 focus:outline-none focus:bg-white focus:border-gray-500"
-                  placeholder="Caption..."
-                  required
-                />
-              </div>
+             
 
                 {/* Upload Files */}
               <div className="flex mb-6">
@@ -269,9 +320,9 @@ const CustomizePotForm = () => {
                   id="multiple_files"
                   type="file"
                   onChange={(e) => {
-                    setImages({
-                      ...images,
-                      image1: e.target.files[0],
+                    setListings({
+                      ...listings,
+                      caption_image: e.target.files[0],
                     });
                   }}
                 />
@@ -280,7 +331,7 @@ const CustomizePotForm = () => {
                   type="submit"
                   onClick={uploadImages}
                 >
-                  Upload Files
+                  Upload image
                 </button>
               </div>
 
@@ -295,7 +346,7 @@ const CustomizePotForm = () => {
                 <select
                   name=""
                   id=""
-                  onChange={handleSelectCategory}
+                  onChange={handleSelectFontStyle}
                   className="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                 >
                   <option value="0" aria-readonly>
@@ -319,7 +370,7 @@ const CustomizePotForm = () => {
                 <select
                   name=""
                   id=""
-                  onChange={handleSelectCategory}
+                  onChange={handleSelectTestColor}
                   className="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                 >
                   <option value="0" aria-readonly>
@@ -335,7 +386,34 @@ const CustomizePotForm = () => {
               </div>
 
               {/* Font size * */}
-              <div className="flex flex-wrap -mx-3 mb-6">
+
+              <div className="mb-6 w-full">
+                <label
+                  for="Font Colour"
+                  className="block mb-2 text-sm font-medium text-gray-900"
+                >
+                  Font Size *
+                </label>
+                <select
+                  name=""
+                  id=""
+                  onChange={handleSelectFontSize}
+                  className="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                >
+                  <option value="0" aria-readonly>
+                    -Select-
+                  </option>
+                  <option value="1">9</option>
+                  <option value="2">10</option>
+                  <option value="3">11</option>
+                  <option value="4">12</option>
+                  <option value="5">14</option>
+                  <option value="6">16</option>
+                </select>
+              </div>
+
+
+              {/* <div className="flex flex-wrap -mx-3 mb-6">
                 <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
                   <label
                     htmlFor="fontSize"
@@ -351,11 +429,11 @@ const CustomizePotForm = () => {
                     value={qt}
                     onChange={(e) => {
                       setQt(e.target.value);
-                      setProduct({ ...product, qt: e.target.value });
+                      setfontSize({ ...fontSize, qt: e.target.value });
                     }}
                   />
                 </div>
-              </div>
+              </div> */}
 
               {/* Delivery Address */}
               <div className="mb-6">
@@ -363,15 +441,15 @@ const CustomizePotForm = () => {
                   for=""
                   className="block mb-2 text-sm font-medium text-gray-900"
                 >
-                  Delivery Address: 
+                  Order Delivery Address: 
                 </label>
                 <input
                   type="text"
-                  value={listings.supplierName}
+                  value={listings.order_address}
                   onChange={(e) =>
                     setListings({
                       ...listings,
-                      supplierName: e.target.value,
+                      order_address: e.target.value,
                     })
                   }
                   className="text-sm w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 focus:outline-none focus:bg-white focus:border-gray-500"
@@ -390,15 +468,15 @@ const CustomizePotForm = () => {
                 </label>
                 <input
                   type="text"
-                  value={listings.supplierName}
+                  value={listings.contact}
                   onChange={(e) =>
                     setListings({
                       ...listings,
-                      supplierName: e.target.value,
+                      contact: e.target.value,
                     })
                   }
                   className="text-sm w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 focus:outline-none focus:bg-white focus:border-gray-500"
-                  placeholder="Contact Number"
+                  placeholder="Enter Contact Number"
                   required
                 />
               </div>

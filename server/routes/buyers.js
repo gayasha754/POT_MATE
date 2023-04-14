@@ -12,8 +12,10 @@ router.route("/orders/pending/top").post(buyerController.getOrdersTop);
 router
   .route("/orders/completed/top")
   .post(buyerController.getOrdersCompletedTop);
-
 router.route("/profile").post(buyerController.getUserdetails);
+
+
+router.route("/addcustomizedpotorder").post(buyerController.addCustomizedOrder);
 
 
 module.exports = router;

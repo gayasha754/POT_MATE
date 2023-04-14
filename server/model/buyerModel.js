@@ -381,6 +381,54 @@ const getUserDetails = (buyerId, res) => {
   });
 };
 
+
+
+const addCustomizedOrder = (
+  plant_id,
+  pot_id,
+  caption_image,
+  font_style,
+  test_color,
+  font_size,
+  order_address,
+  contact,
+  status,
+  res
+) => {
+  db.getConnection((err, connection) => {
+    if (err) {
+      return res.json({ error: "Internal Server Error 1" });
+    } else {
+      const sql =
+        // "INSERT INTO customized_orders ( plant_id, pot_id, pot_id, caption_image, font_style, test_color, font_size, order_address, contact, status ) VALUES (?,?,?,?,?,?,?,?,?,pending)";
+      "INSERT INTO customized_orders (plant_id, pot_id, caption_image, font_style, test_color, font_size, order_address, contact, status ) VALUES (?,?,?,?,?,?,?,?,?)";
+        connection.query(
+        sql,
+        [
+          plant_id,
+          pot_id,
+          caption_image,
+          font_style,
+          test_color,
+          font_size,
+          order_address,
+          contact,
+          status
+        ],
+        (err, results) => {
+          connection.release();
+          if (err) {
+            console.log("err--------------------", err);
+            return res.json({ error: "Internal Server Error 2" });
+          } else {
+            return res.json({ success: "product successfully added" });
+          }
+        }
+      );
+    }
+  });
+};
+
 module.exports = {
   createBuyer,
   findBuyer,
@@ -398,4 +446,5 @@ module.exports = {
   getOrdersTop,
   getCompletedOrdersTop,
   getUserDetails,
+  addCustomizedOrder,
 };
