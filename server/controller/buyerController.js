@@ -247,6 +247,66 @@ const getUserdetails = async (req, res) => {
   }
 };
 
+const addCustomizedOrder = (req, res) => {
+  const {
+    plant_id,
+    pot_id,
+    caption_image,
+    font_style,
+    test_color,
+    font_size,
+    order_address,
+    contact,
+    status,
+  } = req.body;
+
+  if (!pot_id) {
+    return res.json({ error: "Pot id can't be empty" });
+  }
+
+  if (!plant_id) {
+    return res.json({ error: "plant_id can't be empty" });
+  }
+
+  if (!caption_image) {
+    return res.json({ error: "caption image can't be empty" });
+  }
+
+  if (!font_style) {
+    return res.json({ error: "font style can't be empty" });
+  }
+
+  if (!test_color) {
+    return res.json({ error: "text colour can't be empty" });
+  }
+  if (!font_size) {
+    return res.json({ error: "font_size can't be empty" });
+  }
+  if (!order_address) {
+    return res.json({ error: "order_address can't be empty" });
+  }
+  if (!contact) {
+    return res.json({ error: "contact can't be empty" });
+  }
+
+  try {
+    buyerModel.addCustomizedOrder(
+      plant_id,
+      pot_id,
+      caption_image,
+      font_style,
+      test_color,
+      font_size,
+      order_address,
+      contact,
+      status,
+      res
+    );
+  } catch (err) {
+    res.json({ error: err });
+  }
+};
+
 module.exports = {
   createBuyer,
   LoginBuyer,
@@ -258,4 +318,5 @@ module.exports = {
   getCompletedOrders,
   getOrdersCompletedTop,
   getUserdetails,
+  addCustomizedOrder,
 };
