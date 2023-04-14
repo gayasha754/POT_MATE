@@ -163,7 +163,7 @@ const Dashboard = () => {
                 <div className="col-span-4 text-gray-600 text-3xl p-32 px-32 mt-0">
                   Total Sales During The Year
                 </div>
-                <div className="col-span-4">
+                <div className="col-span-5">
                   <AnnualSalesData />
                 </div>
               </div>
