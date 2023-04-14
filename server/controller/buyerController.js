@@ -98,6 +98,8 @@ const LoginBuyer = async (req, res) => {
 };
 
 const addPayment = async (customer, data) => {
+
+  console.log("check22");
   const buyerID = customer.metadata.buyerID;
   const cart = JSON.parse(customer.metadata.cart);
   const subTotal = data.amount_subtotal / 100;

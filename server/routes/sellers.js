@@ -25,7 +25,7 @@ router.route("/updatestock").post(sellerController.updateStock);
 router.route("/getsales").post(sellerController.getSalesCount);
 router.route("/getorders").post(sellerController.getOrdersCount);
 router.route("/getProducts").post(sellerController.getProductsCount);
-
+router.route("/getannualsalesdata").post(sellerController.getAnnualSalesData);
 
 
 module.exports = router;

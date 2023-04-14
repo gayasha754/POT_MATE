@@ -6,6 +6,7 @@ const stripe = Stripe(process.env.STRIPE_KEY);
 const buyerController = require("../controller/buyerController");
 
 router.post("/create-checkout-session", async (req, res) => {
+  console.log("dataaaa------------------");
   let total = 0;
   const totalShipping = req.body.cartItems.map((item) => {
     return parseFloat(item?.shippingPrice);
@@ -18,10 +19,17 @@ router.post("/create-checkout-session", async (req, res) => {
   console.log("total shopping is", totalShipping);
 
   const cart = req.body.cartItems.map((item) => {
+
+    // let checkVariable =  item.id;
+    // console.log("checkVariable" , checkVariable);
+    // return checkVariable;
+    
+
     return {
       productID: item.id,
       quantity: item.qt ? item.qt : 1,
       price: item.price,
+
     };
   });
 
@@ -29,6 +37,7 @@ router.post("/create-checkout-session", async (req, res) => {
     metadata: {
       buyerID: req.body.buyerID,
       cart: JSON.stringify(cart),
+      
     },
   });
   const line_items = req.body.cartItems.map((item) => {
@@ -48,6 +57,7 @@ router.post("/create-checkout-session", async (req, res) => {
   });
 
   const session = await stripe.checkout.sessions.create({
+    
     payment_method_types: ["card"],
     shipping_address_collection: {allowed_countries: ['SL']},
 
@@ -81,11 +91,12 @@ let endpointSecret;
   "whsec_50a3996cbf03f0eba459c7c13c884a6bb88187ef8da33080db68edb3f25726b3";
  */
 router.post(
+  
   "/webhook",
   express.raw({ type: "application/json" }),
   (req, res) => {
     const sig = req.headers["stripe-signature"];
-
+    console.log("dataaaa- router posttttttttttttttttttttttttttttttttttttttttttt-----------------");
     let data;
     let eventType;
 
@@ -99,21 +110,25 @@ router.post(
         return;
       }
       data = event.data.object;
+      console.log("111111111111111111111data--------------: ", data );
       eventType = event.type;
     } else {
       data = req.body.data.object;
+      console.log("--------------------data--------------: ", data );
       eventType = req.body.type;
     }
 
     // Handle the event
     if (eventType == "checkout.session.completed") {
       console.log("here is data from the data");
-      console.log(data);
+      console.log(atda);
       stripe.customers
         .retrieve(data.customer)
         .then((customer) => {
           console.log(customer);
           console.log("data:", data);
+          buyerController.addPayment(customer, data);
+          console.log("dataaa");
         })
         .catch((err) => console.log(err.message));
     }
