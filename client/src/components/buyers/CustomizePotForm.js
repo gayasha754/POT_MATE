@@ -92,8 +92,8 @@ const CustomizePotForm = () => {
     console.log("Handle submit function");
     e.preventDefault();
     let data = {
-      plant_id: listings.plant_id,
-      pot_id: listings.pot_id,
+      plant_id: listings.plant_id+".jpg",
+      pot_id: listings.pot_id+".jpg",
       caption_image: listings.caption_image.name,
       font_style: listings.font_style,
       test_color: listings.test_color,
@@ -154,60 +154,46 @@ const CustomizePotForm = () => {
                   Select a Pot
                 </label>
               
-          
-                {/* <input
-                  type="text"
-                  value={listings.plant_id}
-                  onChange={(e) =>
-                    setListings({
-                      ...listings,
-                      plant_id: e.target.value,
-                    })
-                  }
-                  className="text-sm w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 focus:outline-none focus:bg-white focus:border-gray-500"
-                  placeholder="Enter pot number from following pots"
-                  required
-                /> */}
                 <div className=" mt-8 flex flex-row">
                   <div className="flex justify-left font-medium items-center w-full h-24">
                     1
                     <img
-                      src={`http://localhost:3500/products/pot1.jpg`}
+                      src={`http://localhost:3500/products/1.jpg`}
                       className="m-4 h-full"
                     />
                   </div>
                   <div className=" flex justify-center font-medium items-center w-full h-24">
                     2
                     <img
-                      src={`http://localhost:3500/products/pot2.jpg`}
+                      src={`http://localhost:3500/products/2.jpg`}
                       className="m-4 h-full"
                     />
                   </div>
                   <div className="flex justify-center font-medium items-center w-full h-24">
                     3
                     <img
-                      src={`http://localhost:3500/products/pot3.jpg`}
+                      src={`http://localhost:3500/products/3.jpg`}
                       className="m-4 h-full"
                     />
                   </div>
                   <div className=" flex justify-center font-medium items-center w-full h-24">
                     4
                     <img
-                      src={`http://localhost:3500/products/pot4.jpg`}
+                      src={`http://localhost:3500/products/4.jpg`}
                       className="m-4 h-full"
                     />
                   </div>
                   <div className="flex justify-center font-medium items-center w-full h-24">
                     5
                     <img
-                      src={`http://localhost:3500/products/pot6.jpg`}
+                      src={`http://localhost:3500/products/5.jpg`}
                       className="m-4 h-full"
                     />
                   </div>
                   <div className=" flex justify-center font-medium items-center w-full h-24">
                     6
                     <img
-                      src={`http://localhost:3500/products/pot8.jpg`}
+                      src={`http://localhost:3500/products/6.jpg`}
                       className="m-4 h-full"
                     />
                   </div>
@@ -241,45 +227,33 @@ const CustomizePotForm = () => {
                 >
                   Select a Plant
                 </label>
-                {/* <input
-                  type="text"
-                  value={listings.pot_id}
-                  onChange={(e) =>
-                    setListings({
-                      ...listings,
-                      pot_id: e.target.value,
-                    })
-                  }
-                  className="text-sm w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 focus:outline-none focus:bg-white focus:border-gray-500"
-                  placeholder="Enter plant number from following plants"
-                  required
-                /> */}
+             
                 <div className=" mt-8 flex flex-row">
                   <div className="flex justify-left font-medium items-center w-full h-24">
                     1
                     <img
-                      src={`http://localhost:3500/products/plant1.jpg`}
+                      src={`http://localhost:3500/products/7.jpg`}
                       className="m-4 h-full"
                     />
                   </div>
                   <div className=" flex justify-center font-medium items-center w-full h-24">
                     2
                     <img
-                      src={`http://localhost:3500/products/plant2.jpg`}
+                      src={`http://localhost:3500/products/8.jpg`}
                       className="m-4 h-full"
                     />
                   </div>
                   <div className="flex justify-center font-medium items-center w-full h-24">
                     3
                     <img
-                      src={`http://localhost:3500/products/plant3.jpg`}
+                      src={`http://localhost:3500/products/9.jpg`}
                       className="m-4 h-full"
                     />
                   </div>
                   <div className=" flex justify-center font-medium items-center w-full h-24">
                     4
                     <img
-                      src={`http://localhost:3500/products/plant4.jpg`}
+                      src={`http://localhost:3500/products/10.jpg`}
                       className="m-4 h-full"
                     />
                   </div>
@@ -295,10 +269,10 @@ const CustomizePotForm = () => {
                   <option value="0" aria-readonly>
                     -Select a Plant Number-
                   </option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
+                  <option value="7">1</option>
+                  <option value="8">2</option>
+                  <option value="9">3</option>
+                  <option value="10">4</option>
                 </select>
                 </div>
 
@@ -353,9 +327,9 @@ const CustomizePotForm = () => {
                     -Select-
                   </option>
                   <option value="1">Ariel</option>
-                  <option value="2">Times New Roman</option>
-                  <option value="3">Calibri</option>
-                  <option value="4">Poppins</option>
+                  <option value="2">Calibri</option>
+                  <option value="3">Poppins</option>
+                  <option value="4">Sans serif</option>
                 </select>
               </div>
 
@@ -377,11 +351,7 @@ const CustomizePotForm = () => {
                     -Select-
                   </option>
                   <option value="1">Black</option>
-                  <option value="2">Blue</option>
-                  <option value="3">Gold</option>
-                  <option value="4">Green</option>
-                  <option value="5">Purple</option>
-                  <option value="6">Red</option>
+                  <option value="2">Gold</option>
                 </select>
               </div>
 
@@ -403,37 +373,15 @@ const CustomizePotForm = () => {
                   <option value="0" aria-readonly>
                     -Select-
                   </option>
-                  <option value="1">9</option>
-                  <option value="2">10</option>
-                  <option value="3">11</option>
-                  <option value="4">12</option>
-                  <option value="5">14</option>
-                  <option value="6">16</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                  <option value="14">14</option>
+                  <option value="16">16</option>
                 </select>
               </div>
 
-
-              {/* <div className="flex flex-wrap -mx-3 mb-6">
-                <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
-                  <label
-                    htmlFor="fontSize"
-                    className="block mb-2 text-sm font-medium text-gray-900"
-                  >
-                    Font size *
-                  </label>
-
-                  <input
-                    type="number"
-                    min="9"
-                    class="text-sm mt-5 px-5 py-3 border border-gray-600 rounded w-20 h-10"
-                    value={qt}
-                    onChange={(e) => {
-                      setQt(e.target.value);
-                      setfontSize({ ...fontSize, qt: e.target.value });
-                    }}
-                  />
-                </div>
-              </div> */}
 
               {/* Delivery Address */}
               <div className="mb-6">
